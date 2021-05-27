@@ -70,7 +70,12 @@ namespace Sample.API.Jobs
 
 			if (env.IsDevelopment())
 			{
-				app.UseDeveloperExceptionPage();
+				//app.UseDeveloperExceptionPage();
+				app.UseExceptionHandler("/errors");
+			}
+			else
+			{
+				app.UseExceptionHandler("/errors");
 			}
 
 			app.UseHttpsRedirection();
