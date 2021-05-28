@@ -20,5 +20,11 @@ namespace Sample.API.Jobs.Repository
 		/// <param name="id"></param>
 		/// <returns></returns>
 		Task<Job> GetJobAsync(int id);
+
+		/// <summary>
+		/// Save Jobs into db
+		/// </summary>
+		/// <param name="job"></param>
+		public void AddJob(Job job);
 	}
 }

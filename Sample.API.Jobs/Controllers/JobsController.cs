@@ -22,7 +22,7 @@ namespace Sample.API.Jobs.Controllers
         public async Task<IActionResult> GetAllJobsAsync()
         {
             //throw new System.NullReferenceException("Id is required");
-            throw new CustomException("Need valid user login", (int)HttpStatusCode.Forbidden);
+            //throw new CustomException("Need valid user login", (int)HttpStatusCode.Forbidden);
 
 
 
@@ -41,6 +41,16 @@ namespace Sample.API.Jobs.Controllers
                 throw new CustomException("No job found", (int)HttpStatusCode.NotFound);
             }
             return Ok(result);
+        }
+
+
+        [HttpPost]
+        [Route("api/[controller]")]
+        public IActionResult SaveJob(Models.Job job)
+        {
+
+            _ijobRepository.AddJob(job);
+            return Ok(job);
         }
     }
 }
