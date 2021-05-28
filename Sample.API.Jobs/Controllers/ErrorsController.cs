@@ -12,7 +12,7 @@ namespace Sample.API.Jobs.Controllers
 	[ApiExplorerSettings(IgnoreApi = true)]
 	public class GlobalErrorsController : ControllerBase
 	{
-		[HttpGet]
+		
 		[Route("/errors")]
 		public IActionResult HandleErrors()
 		{

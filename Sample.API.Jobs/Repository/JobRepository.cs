@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using Sample.API.Jobs.Models;
 using Dapper;
+using System.Net;
+
 namespace Sample.API.Jobs.Repository
 {
 	public class JobRepository : IJobRepository
@@ -44,5 +46,32 @@ namespace Sample.API.Jobs.Repository
                 return jobs;
             }
         }
-    }
+
+		public void AddJob(Job job)
+		{
+
+			if (job == null)
+			{
+				throw new CustomException("valid object not found", (int)HttpStatusCode.BadRequest);
+			}
+
+			if (string.IsNullOrWhiteSpace(job.Title))
+			{
+				throw new CustomException("job title not found", (int)HttpStatusCode.BadRequest);
+			}
+
+			if (string.IsNullOrWhiteSpace(job.City))
+			{
+				throw new CustomException("job city not found", (int)HttpStatusCode.BadRequest);
+			}
+
+
+			using (MySqlConnection conn = Connection)
+			{
+				string query = "Insert into Jobs(title,position,city) values (@JobTitle,@JobPosition,@JobCity)";
+				conn.Execute(sql: query, param: new { JobTitle = job.Title, JobPosition = job.position, JobCity = job.City });
+
+			}
+		}
+	}
 }
